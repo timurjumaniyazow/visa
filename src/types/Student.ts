@@ -1,5 +1,5 @@
 export default interface Student {
-  id?: string;
+  id: string;
   name: string;
   dateOfBirth: Date;
   educationForm: "full-time" | "part-time";

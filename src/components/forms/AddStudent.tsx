@@ -18,7 +18,7 @@ export default function AddStudents({ onAddStudent }: AddStudentsProps) {
   const [dormitoryNumber, setDormitoryNumber] = useState<
     number | "Без общежития"
   >("Без общежития");
-  const [id, setId] = useState<string>();
+  const [visaExpiryDate, setVisaExpiryDate] = useState(new Date());
   const generateId = (date: Date, passportNumber: string): string => {
     return (
       date.getTime() +
@@ -43,7 +43,8 @@ export default function AddStudents({ onAddStudent }: AddStudentsProps) {
       passportNumber: passportNumber,
       courseOfStudies: courseOfStudies,
       dormitoryNumber: dormitoryNumber,
-      id: id,
+      visaExpiryDate: visaExpiryDate,
+      id: generateId(new Date(), passportNumber),
     };
     onAddStudent(newStudent);
   };
@@ -144,6 +145,13 @@ export default function AddStudents({ onAddStudent }: AddStudentsProps) {
             Находится в академическом отпуске
           </option>
         </select>
+        <label htmlFor="visaExpiryDate">Дата окончания визы</label>
+        <input
+          onChange={(e) => setVisaExpiryDate(new Date(e.target.value))}
+          type="date"
+          name="visaExpiryDate"
+          id="visaExpiryDate"
+        />
         <input type="hidden" id="id" />
         <button type="submit" className="mx-auto block">
           Добавить студента
