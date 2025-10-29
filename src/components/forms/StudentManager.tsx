@@ -2,9 +2,17 @@ import { useState } from "react";
 import type Student from "../../types/Student";
 import AddStudents from "./AddStudent";
 import StudentList from "../students/StudentList";
+// import { mockup } from "../../data/mockup";
 export default function StudentManager() {
   const [students, setStudents] = useState<Student[]>([]);
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
+  const [filteredTemp, setFilteredTemp] = useState("");
+  const filteredStudents: Student[] = students.filter((student) =>
+    student.name.toLowerCase().includes(filteredTemp.toLowerCase())
+  );
+  const handleSearchStudents = (text: string) => {
+    setFilteredTemp(text);
+  };
 
   const handleAddStudent = (data: Student) => {
     const newStudent = {
@@ -18,10 +26,17 @@ export default function StudentManager() {
   };
 
   const handleUpdateStudent = (updatedStudent: Student) => {
+    console.log(updatedStudent.id);
     setStudents((prev) =>
-      prev.map((student) =>
-        student.id === updatedStudent.id ? updatedStudent : student
-      )
+      prev.map((student) => {
+        if (student.id === updatedStudent.id) {
+          console.log(student.id, updatedStudent.id);
+          return updatedStudent;
+        } else {
+          console.log(student.id, updatedStudent.id);
+          return student;
+        }
+      })
     );
     setEditingStudentId(null);
   };
@@ -38,7 +53,8 @@ export default function StudentManager() {
     <>
       <AddStudents onAddStudent={handleAddStudent} />
       <StudentList
-        students={students}
+        onFilterStudents={handleSearchStudents}
+        students={filteredStudents}
         editingStudentId={editingStudentId}
         onStartEditing={startEditing}
         onCancelEditing={cancelEditing}

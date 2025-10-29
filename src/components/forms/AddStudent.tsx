@@ -1,5 +1,6 @@
 import type Student from "../../types/Student";
 import { useState, type FormEvent } from "react";
+import { countryList } from "../../data/countries";
 interface AddStudentsProps {
   onAddStudent: (student: Student) => void;
 }
@@ -68,13 +69,19 @@ export default function AddStudents({ onAddStudent }: AddStudentsProps) {
           id="dateOfBirth"
         />
         <label htmlFor="citizenship">Гражданство</label>
-        <input
+
+        <select
           value={citizenship}
           onChange={(e) => setCitizenship(e.target.value)}
-          type="text"
           name="citizenship"
           id="citizenship"
-        />
+        >
+          {countryList.map((country) => (
+            <option className="text-black" key={country}>
+              {country}
+            </option>
+          ))}
+        </select>
         <label htmlFor="dormitory">Номер общежития</label>
         <select
           value={dormitoryNumber}

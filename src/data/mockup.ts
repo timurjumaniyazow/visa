@@ -2,9 +2,9 @@
 
 import type Student from "../types/Student";
 
-const students: Student[] = [
+const mockup: Student[] = [
   {
-    id: 0,
+    id: "0",
     name: "Алексей Петров",
     dateOfBirth: new Date("2001-03-15"),
     educationForm: "full-time",
@@ -16,7 +16,7 @@ const students: Student[] = [
     // У российских студентов нет визовых данных
   },
   {
-    id: 3,
+    id: "3",
     name: "Чжан Вэй",
     dateOfBirth: new Date("2002-07-22"),
     educationForm: "full-time",
@@ -30,7 +30,7 @@ const students: Student[] = [
     registrationAddress: "Общежитие №2, комната 415",
   },
   {
-    id: 4,
+    id: "4",
     name: "Мария Сидорова",
     dateOfBirth: new Date("2000-11-08"),
     educationForm: "part-time",
@@ -41,7 +41,7 @@ const students: Student[] = [
     // Нет общежития и визовых данных
   },
   {
-    id: 5,
+    id: "5",
     name: "Ахмед Аль-Рашид",
     dateOfBirth: new Date("1999-12-30"),
     educationForm: "full-time",
@@ -55,7 +55,7 @@ const students: Student[] = [
     registrationAddress: "Общежитие №7, комната 212",
   },
   {
-    id: 6,
+    id: "6",
     name: "Екатерина Козлова",
     dateOfBirth: new Date("2001-05-18"),
     educationForm: "full-time",
@@ -67,7 +67,7 @@ const students: Student[] = [
     // Отчисленная студентка - визовых данных нет
   },
   {
-    id: 7,
+    id: "7",
     name: "София Мюллер",
     dateOfBirth: new Date("2001-09-10"),
     educationForm: "full-time",
@@ -80,4 +80,4 @@ const students: Student[] = [
     registrationAddress: "ул. Ленина, д. 25, кв. 14",
   },
 ];
-export { students };
+export { mockup };

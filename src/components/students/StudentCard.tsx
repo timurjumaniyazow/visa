@@ -1,11 +1,12 @@
+import { useState } from "react";
 import type Student from "../../types/Student";
-
+import { countryList } from "../../data/countries";
 interface StudentCardProps {
   student: Student;
   onDeleteStudent: (student: string) => void;
   onStartEditing: (studentId: string) => void;
   editingStudentId: string | null;
-  onCancelEditing: (studentId: string) => void;
+  onCancelEditing: () => void;
   onUpdateStudent: (student: Student) => void;
 }
 export default function StudentCard({
@@ -16,28 +17,73 @@ export default function StudentCard({
   onCancelEditing,
   onUpdateStudent,
 }: StudentCardProps) {
+  const [editData, setEditData] = useState<Student>(student);
   const isEditing = editingStudentId === student.id;
+  const handleSave = () => {
+    onUpdateStudent(editData);
+  };
   {
     if (isEditing) {
       return (
         <tr>
           <td className="border text-center px-5">
-            <input value={student.name} type="text" name="name" id="name" />
-          </td>
-          <td className="border text-center px-5">
-            <input type="date" name="dateOfBirth" id="dateOfBirth" />
-          </td>
-          <td className="border text-center px-5">
             <input
-              value={student.citizenship}
+              onChange={(e) =>
+                setEditData({ ...editData, name: e.target.value })
+              }
+              value={editData.name}
               type="text"
-              name="citizenship"
-              id="citizenship"
+              name="name"
+              id="name"
             />
           </td>
           <td className="border text-center px-5">
-            {" "}
-            <input type="text" value={student.educationForm} />
+            <input
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  dateOfBirth: new Date(e.target.value),
+                })
+              }
+              value={editData.dateOfBirth.toLocaleDateString("RU-ru")}
+              type="date"
+              name="dateOfBirth"
+              id="dateOfBirth"
+            />
+          </td>
+          <td className="border text-center px-5">
+            <select
+              value={editData.citizenship}
+              onChange={(e) =>
+                setEditData({ ...editData, citizenship: e.target.value })
+              }
+              name="citizenship"
+              id="citizenship"
+            >
+              {countryList.map((country) => (
+                <option>{country}</option>
+              ))}
+            </select>
+          </td>
+          <td className="border text-center px-5">
+            <select
+              value={editData.educationForm}
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  educationForm: e.target.value as "part-time" | "full-time",
+                })
+              }
+              name="educationForm"
+              id="educationForm"
+            >
+              <option className="text-black" value="full-time">
+                full-time
+              </option>
+              <option className="text-black" value="part-time">
+                part-time
+              </option>
+            </select>
           </td>
           <td className="border text-center px-5">
             <select
@@ -59,16 +105,68 @@ export default function StudentCard({
             </select>
           </td>
           <td className="border text-center px-5">
-            <input type="date" name="visaExpiryDate" id="visaExpiryDate" />
+            <input
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  visaExpiryDate: new Date(e.target.value),
+                })
+              }
+              type="date"
+              name="visaExpiryDate"
+              id="visaExpiryDate"
+            />
           </td>
-          <td className="border text-center px-5">{student.passportNumber}</td>
           <td className="border text-center px-5">
-            <button onClick={() => onUpdateStudent(student)} type="button">
+            <button disabled={true}>Удалить</button>
+          </td>
+          <td className="border text-center px-5">
+            <button onClick={() => handleSave()} type="button">
               Сохранить
             </button>
-            <button onClick={() => onCancelEditing(student.id)} type="button">
+            <button onClick={() => onCancelEditing()} type="button">
               Отменить
             </button>
+          </td>
+          <td className="border text-center px-5">
+            <input
+              type="text"
+              value={editData.passportNumber}
+              onChange={(e) =>
+                setEditData({ ...editData, passportNumber: e.target.value })
+              }
+            />
+          </td>
+          <td className="border text-center px-5">
+            <input
+              type="text"
+              value={editData.courseOfStudies}
+              onChange={(e) =>
+                setEditData({ ...editData, courseOfStudies: +e.target.value })
+              }
+            />
+          </td>
+          <td className="border text-center px-5">
+            <select
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  status: e.target.value as
+                    | "studying"
+                    | "expelled"
+                    | "on an academic leave",
+                })
+              }
+              value={editData.status}
+              name="status"
+              id="status"
+            >
+              <option value="studying">Студент</option>
+              <option value="expelled">Отчислен</option>
+              <option value="on an academic leave">
+                Находится в академическом отпуске
+              </option>
+            </select>
           </td>
         </tr>
       );

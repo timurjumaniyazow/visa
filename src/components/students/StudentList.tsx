@@ -1,11 +1,12 @@
 import type Student from "../../types/Student";
 import StudentCard from "./StudentCard";
 interface StudentListProps {
+  onFilterStudents: (text: string) => void;
   students: Student[];
   onDeleteStudent: (studentId: string) => void;
   onStartEditing: (studentId: string) => void;
   editingStudentId: string | null;
-  onCancelEditing: (studentId: string) => void;
+  onCancelEditing: () => void;
   onUpdateStudent: (student: Student) => void;
 }
 export default function StudentList({
@@ -15,9 +16,17 @@ export default function StudentList({
   editingStudentId,
   onCancelEditing,
   onUpdateStudent,
+  onFilterStudents,
 }: StudentListProps) {
   return (
     <>
+      <input
+        className="bg-amber-50 w-2xs text-black"
+        type="search"
+        name="searchStudents"
+        id="searchStudents"
+        onChange={(e) => onFilterStudents(e.target.value)}
+      />
       <table className="border-collapse">
         <caption>Список студентов</caption>
         <thead>
