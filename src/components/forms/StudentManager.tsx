@@ -1,18 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type Student from "../../types/Student";
 import AddStudents from "./AddStudent";
 import StudentList from "../students/StudentList";
-// import { mockup } from "../../data/mockup";
+import FilterStudents from "../students/FilterStudents";
+import { mockup } from "../../data/mockup";
 export default function StudentManager() {
   const [students, setStudents] = useState<Student[]>([]);
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
-  const [filteredTemp, setFilteredTemp] = useState("");
-  const filteredStudents: Student[] = students.filter((student) =>
-    student.name.toLowerCase().includes(filteredTemp.toLowerCase())
-  );
-  const handleSearchStudents = (text: string) => {
-    setFilteredTemp(text);
+  // const [filteredTemp, setFilteredTemp] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
+  const [countryFilter, setCountryFilter] = useState("");
+  const [dormFilter, setDormFilter] = useState<
+    number | "Без общежития" | undefined
+  >();
+  const handleFilterDorm = (dormString: string) => {
+    if (dormString === "Без общежития") {
+      setDormFilter("Без общежития");
+    } else if (dormString === "") {
+      setDormFilter(undefined);
+    } else setDormFilter(Number(dormString));
   };
+  const filteredStudents = students.filter((student) => {
+    const matchesNames = student.name
+      .toLowerCase()
+      .includes(nameFilter.toLowerCase().trim());
+    const matchesDorm =
+      !dormFilter ||
+      student.dormitoryNumber?.toString() === dormFilter.toString();
+    const matchesCountry =
+      !countryFilter || student.citizenship === countryFilter;
+    return matchesCountry && matchesNames && matchesDorm;
+  });
 
   const handleAddStudent = (data: Student) => {
     const newStudent = {
@@ -48,12 +66,19 @@ export default function StudentManager() {
   const cancelEditing = () => {
     setEditingStudentId(null);
   };
+  useEffect(() => {
+    setStudents(mockup);
+  }, []);
 
   return (
     <>
       <AddStudents onAddStudent={handleAddStudent} />
+      <FilterStudents
+        onFilterDorm={handleFilterDorm}
+        onFilterCountry={setCountryFilter}
+        onFilterName={setNameFilter}
+      />
       <StudentList
-        onFilterStudents={handleSearchStudents}
         students={filteredStudents}
         editingStudentId={editingStudentId}
         onStartEditing={startEditing}

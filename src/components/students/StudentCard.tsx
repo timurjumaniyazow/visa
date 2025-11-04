@@ -175,7 +175,9 @@ export default function StudentCard({
         <tr>
           <td className="border text-center px-5">{student.name}</td>
           <td className="border text-center px-5">
-            {student.dateOfBirth.toLocaleDateString("ru-RU")}
+            {typeof student.dateOfBirth === "string"
+              ? student.dateOfBirth
+              : student.dateOfBirth.toLocaleDateString("ru-RU")}
           </td>
           <td className="border text-center px-5">{student.citizenship}</td>
           <td className="border text-center px-5">{student.educationForm}</td>
@@ -185,8 +187,9 @@ export default function StudentCard({
               : student.dormitoryNumber}
           </td>
           <td className="border text-center px-5">
-            {student.visaExpiryDate === undefined
-              ? "Безвиз"
+            {student.visaExpiryDate === undefined ||
+            typeof student.visaExpiryDate === "string"
+              ? student.visaExpiryDate
               : student.visaExpiryDate.toLocaleDateString("ru-RU")}
           </td>
 
