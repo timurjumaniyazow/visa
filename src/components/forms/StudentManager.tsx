@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type Student from "../../types/Student";
 import AddStudents from "./AddStudent";
 import StudentList from "../students/StudentList";
 import FilterStudents from "../students/FilterStudents";
-import { mockup } from "../../data/mockup";
+import CountStudents from "../common/CountStudents";
+import StudentLoader from "../api/StudentLoader";
 export default function StudentManager() {
   const [students, setStudents] = useState<Student[]>([]);
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
@@ -66,9 +67,9 @@ export default function StudentManager() {
   const cancelEditing = () => {
     setEditingStudentId(null);
   };
-  useEffect(() => {
-    setStudents(mockup);
-  }, []);
+  const handleLoadStudents = (loadedStudents: Student[]) => {
+    setStudents(loadedStudents);
+  };
 
   return (
     <>
@@ -78,6 +79,8 @@ export default function StudentManager() {
         onFilterCountry={setCountryFilter}
         onFilterName={setNameFilter}
       />
+      <CountStudents students={filteredStudents} />
+      <StudentLoader onStudentLoaded={handleLoadStudents} />
       <StudentList
         students={filteredStudents}
         editingStudentId={editingStudentId}

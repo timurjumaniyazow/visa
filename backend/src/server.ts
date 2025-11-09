@@ -1,21 +1,36 @@
-// backend/src/server.ts
-import express from "express";
-import cors from "cors";
+// 1. Загрузка всех студентов
+function loadStudents() {
+  // Твой код здесь
+  fetch('api/students').then(response=>response.json).then(students=>setStudents(students))
+}
 
-const app = express();
-const PORT = 3001;
+// 2. Добавление студента
+function addStudent(studentData) {
+  // Твой код здесь  
+  fetch('api/students',{
+    method: 'POST',
+    headers: {'CONTENT-TYPE':'application/json'},
+    body:JSON.stringify({
+      ...studentData
+    })
+  })
+}
 
-app.use(cors());
-app.use(express.json());
+// 3. Обновление гражданства
+function updateStudent(studentId, newData) {
+  fetch('api/students/:id',{
+    method: 'PATCH',
+    headers: {'CONTENT-TYPE':'application/json'},
+    setStudents(prev=>prev.map(student=>student.id===studentId?newData:student))
+  })
+  // Твой код здесь
+}
 
-// Тестовый эндпоинт
-app.get("/api/students", (req, res) => {
-  res.json([
-    { id: 1, name: "Иван Иванов", citizenship: "Россия" },
-    { id: 2, name: "Мария Петрова", citizenship: "Казахстан" },
-  ]);
-});
-
-app.listen(PORT, () => {
-  console.log(`🎯 Backend running on http://localhost:${PORT}`);
-});
+// 4. Удаление студента
+function deleteStudent(studentId) {
+  // Твой код здесь
+  fetch('api/students/:id',{
+    method: 'DELETE',
+    setStudents(prev=>prev.filter(student=>student.id===studentId?newData:student))
+  })
+}

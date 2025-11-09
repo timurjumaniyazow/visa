@@ -1,0 +1,75 @@
+[
+  {
+    "id": "0",
+    "name": "Алексей Петров",
+    "dateOfBirth": "2001-03-15",
+    "educationForm": "full-time",
+    "dormitoryNumber": 5,
+    "status": "studying",
+    "passportNumber": "4508 123456",
+    "citizenship": "Россия",
+    "courseOfStudies": 3
+  },
+  {
+    "id": "3",
+    "name": "Чжан Вэй",
+    "dateOfBirth": "2002-07-22",
+    "educationForm": "full-time",
+    "dormitoryNumber": 2,
+    "status": "studying",
+    "passportNumber": "G12345678",
+    "citizenship": "Китай",
+    "courseOfStudies": 2,
+    "visaExpiryDate": "2024-12-31",
+    "migrationCardNumber": 784512,
+    "registrationAddress": "Общежитие №2, комната 415"
+  },
+  {
+    "id": "4",
+    "name": "Мария Сидорова",
+    "dateOfBirth": "2000-11-08",
+    "educationForm": "part-time",
+    "status": "on an academic leave",
+    "passportNumber": "4510 987654",
+    "citizenship": "Россия",
+    "courseOfStudies": 4
+  },
+  {
+    "id": "5",
+    "name": "Ахмед Аль-Рашид",
+    "dateOfBirth": "1999-12-30",
+    "educationForm": "full-time",
+    "dormitoryNumber": 7,
+    "status": "studying",
+    "passportNumber": "A78901234",
+    "citizenship": "Саудовская Аравия",
+    "courseOfStudies": 1,
+    "visaExpiryDate": "2024-06-15",
+    "migrationCardNumber": 963258,
+    "registrationAddress": "Общежитие №7, комната 212"
+  },
+  {
+    "id": "6",
+    "name": "Екатерина Козлова",
+    "dateOfBirth": "2001-05-18",
+    "educationForm": "full-time",
+    "dormitoryNumber": 3,
+    "status": "expelled",
+    "passportNumber": "4511 555555",
+    "citizenship": "Россия",
+    "courseOfStudies": 2
+  },
+  {
+    "id": "7",
+    "name": "София Мюллер",
+    "dateOfBirth": "2001-09-10",
+    "educationForm": "full-time",
+    "dormitoryNumber": 4,
+    "status": "studying",
+    "passportNumber": "C44556677",
+    "citizenship": "Германия",
+    "courseOfStudies": 2,
+    "migrationCardNumber": 112233,
+    "registrationAddress": "ул. Ленина, д. 25, кв. 14"
+  }
+]
