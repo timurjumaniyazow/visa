@@ -11,7 +11,9 @@ export default function StudentLoader({ onStudentLoaded }: StudentLoaderProps) {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("../data/students.json");
+        const response = await fetch(
+          "https://raw.githubusercontent.com/timurjumaniyazow/visa/dev/src/data/students.json"
+        );
         if (!response.ok) {
           throw new Error(
             `Error ${response.status} means ${response.statusText}`

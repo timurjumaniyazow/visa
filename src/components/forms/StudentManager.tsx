@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import type Student from "../../types/Student";
 import AddStudents from "./AddStudent";
 import StudentList from "../students/StudentList";
@@ -67,9 +67,9 @@ export default function StudentManager() {
   const cancelEditing = () => {
     setEditingStudentId(null);
   };
-  const handleLoadStudents = (loadedStudents: Student[]) => {
+  const handleLoadStudents = useCallback((loadedStudents: Student[]) => {
     setStudents(loadedStudents);
-  };
+  }, []);
 
   return (
     <>

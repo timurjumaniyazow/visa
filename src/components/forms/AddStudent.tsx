@@ -5,7 +5,7 @@ interface AddStudentsProps {
   onAddStudent: (student: Student) => void;
 }
 export default function AddStudents({ onAddStudent }: AddStudentsProps) {
-  const [name, setName] = useState("Введите имя");
+  const [name, setName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState(new Date());
   const [citizenship, setCitizenship] = useState("");
   const [educationForm, setEducationForm] = useState<"part-time" | "full-time">(
@@ -55,6 +55,7 @@ export default function AddStudents({ onAddStudent }: AddStudentsProps) {
       <form onSubmit={submitForm}>
         <label htmlFor="name">ФИО</label>
         <input
+          placeholder="Введите имя"
           onChange={(e) => setName(e.target.value)}
           value={name}
           type="text"
